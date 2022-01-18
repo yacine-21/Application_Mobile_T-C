@@ -19,34 +19,42 @@ const Laugh = () => {
     {
       name: 'Roronoa Zoro',
       image: require('../assets/images/roronoa_zoro.jpg'),
+      sound: 'roronoa_zoro',
     },
     {
       name: 'Nami',
       image: require('../assets/images/nami.gif'),
+      sound: 'nami',
     },
     {
       name: 'Vinsmoke Sanji',
       image: require('../assets/images/sanji.jpg'),
+      sound: 'sanji',
     },
     {
       name: 'Chopper',
       image: require('../assets/images/chopper.png'),
+      sound: 'chopper',
     },
     {
       name: 'Franky',
       image: require('../assets/images/franky.jpg'),
+      sound: 'franky',
     },
     {
       name: 'Brook',
       image: require('../assets/images/brook.jpg'),
+      sound: 'brook',
     },
     {
       name: 'Monkey D. Luffy',
       image: require('../assets/images/luffy.jpg'),
+      sound: 'luffy',
     },
     {
       name: 'God Usopp',
       image: require('../assets/images/usopp.jpg'),
+      sound: 'usopp',
     },
   ];
 
@@ -56,7 +64,8 @@ const Laugh = () => {
       <FlatList
         data={data}
         renderItem={({item, index}) => <Card item={item} />}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item, index) => index}
+        numColumns={2}
       />
     </View>
   );
@@ -68,6 +77,6 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     backgroundColor: '#fff',
-    padding: 10,
+    paddingVertical: 10,
   },
 });
