@@ -1,5 +1,5 @@
 import React from 'react';
-import Accueil from './component/Accueil';
+import Accueil from './view/Accueil';
 
 const App = () => {
   return <Accueil />;
