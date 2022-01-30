@@ -1,10 +1,16 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Button} from 'react-native';
 
-const Accueil = () => {
+const Accueil = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.Text}>Accueil</Text>
+      <Button
+        title="Laugh"
+        onPress={() => {
+          navigation.navigate('Laugh');
+        }}
+      />
     </View>
   );
 };
@@ -19,5 +25,6 @@ const styles = StyleSheet.create({
   },
   Text: {
     fontSize: 20,
+    color: 'black',
   },
 });
