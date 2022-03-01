@@ -6,7 +6,7 @@ const Header = () => {
     <View style={styles.container}>
       <Image
         style={styles.image}
-        source={require('../assets/images/logo.png')}
+        source={require('../assets/images/Laught/logo.png')}
       />
       <Text style={styles.Text}>Laugh Tale</Text>
     </View>

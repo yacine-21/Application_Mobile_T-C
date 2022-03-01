@@ -8,52 +8,52 @@ import {
   FlatList,
 } from 'react-native';
 import Header from '../component/Header';
-import DATA_BDAY from '../assets/Data/onepice_bday';
-import DATA_BOUNTY from '../assets/Data/onepice_bounty';
-import DATA_FRUITS from '../assets/Data/onepice_fruits';
-import DATA_HEIGHT from '../assets/Data/onepice_height';
+// import DATA_BDAY from '../assets/Data/o/Laughtnepice_bday';
+// import DATA_BOUNTY from '../assets/Data/o/Laughtnepice_bounty';
+// import DATA_FRUITS from '../assets/Data/o/Laughtnepice_fruits';
+// import DATA_HEIGHT from '../assets/Data/o/Laughtnepice_height';
 import Card from '../component/Card';
 
 const Laugh = () => {
   const data = [
     {
       name: 'Roronoa Zoro',
-      image: require('../assets/images/roronoa_zoro.jpg'),
+      image: require('../assets/images/Laught/roronoa_zoro.jpg'),
       sound: 'roronoa_zoro',
     },
     {
       name: 'Nami',
-      image: require('../assets/images/nami.gif'),
+      image: require('../assets/images/Laught/nami.gif'),
       sound: 'nami',
     },
     {
       name: 'Vinsmoke Sanji',
-      image: require('../assets/images/sanji.jpg'),
+      image: require('../assets/images/Laught/sanji.jpg'),
       sound: 'sanji',
     },
     {
       name: 'Chopper',
-      image: require('../assets/images/chopper.png'),
+      image: require('../assets/images/Laught/chopper.png'),
       sound: 'chopper',
     },
     {
       name: 'Franky',
-      image: require('../assets/images/franky.jpg'),
+      image: require('../assets/images/Laught/franky.jpg'),
       sound: 'franky',
     },
     {
       name: 'Brook',
-      image: require('../assets/images/brook.jpg'),
+      image: require('../assets/images/Laught/brook.jpg'),
       sound: 'brook',
     },
     {
       name: 'Monkey D. Luffy',
-      image: require('../assets/images/luffy.jpg'),
+      image: require('../assets/images/Laught/luffy.jpg'),
       sound: 'luffy',
     },
     {
       name: 'God Usopp',
-      image: require('../assets/images/usopp.jpg'),
+      image: require('../assets/images/Laught/usopp.jpg'),
       sound: 'usopp',
     },
   ];
