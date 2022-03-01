@@ -5,11 +5,9 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  Pressable,
   Modal,
   Dimensions,
   ImageBackground,
-  FlatList,
 } from 'react-native';
 import Icon from 'react-native-ionicons';
 import SoundPlayer from 'react-native-sound-player';
@@ -22,10 +20,6 @@ const Card = ({item}) => {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const renderItem = ({item}) => {
-    return <Text style={{color: 'black', fontSize: 600}}></Text>;
   };
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -84,6 +78,7 @@ const Card = ({item}) => {
               </View>
               <View
                 style={{
+                  width: '100%',
                   flexDirection: 'row',
                   justifyContent: 'space-around',
                   marginTop: 10,
@@ -93,11 +88,16 @@ const Card = ({item}) => {
                   <Text style={styles.text}>SET AS DEFAULT RINGTONE</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={styles.closeButton}
                   onPress={() => {
                     setModalVisible(!modalVisible);
                   }}>
-                  <Text style={styles.text}>Close</Text>
+                  {/*logo here*/}
+                  <Icon
+                    name="close-circle"
+                    color="red"
+                    size={35}
+                    style={styles.icon}
+                  />
                 </TouchableOpacity>
               </View>
             </ImageBackground>
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width - 25,
     height: Dimensions.get('window').height / 2.5,
     borderRadius: 20,
-    opacity: 0.5,
+    opacity: 0.7,
     alignItems: 'flex-start',
     justifyContent: 'space-around',
   },
@@ -196,5 +196,9 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height / 15,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  closeImage: {
+    width: Dimensions.get('window').width / 10,
+    height: Dimensions.get('window').height / 15,
   },
 });
