@@ -1,5 +1,16 @@
-import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Pressable,
+  Modal,
+  Dimensions,
+  ImageBackground,
+  FlatList,
+} from 'react-native';
 import Icon from 'react-native-ionicons';
 import SoundPlayer from 'react-native-sound-player';
 
@@ -13,6 +24,12 @@ const Card = ({item}) => {
     }
   };
 
+  const renderItem = ({item}) => {
+    return <Text style={{color: 'black', fontSize: 600}}></Text>;
+  };
+
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View style={styles.card}>
       <TouchableOpacity
@@ -23,7 +40,10 @@ const Card = ({item}) => {
         <Image style={styles.image} source={item.image} />
         <Text style={styles.text}>{item.name}</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          setModalVisible(true);
+        }}>
         <Icon
           name="add-circle-outline"
           color="red"
@@ -31,6 +51,59 @@ const Card = ({item}) => {
           style={styles.icon}
         />
       </TouchableOpacity>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <ImageBackground style={styles.imageBackground} source={item.image}>
+              <View
+                style={{
+                  justifyContent: 'space-between',
+                  marginTop: 10,
+                }}>
+                <Text style={styles.text}>
+                  Name : {item.Name ? item.Age : 'NO DATA'}
+                </Text>
+                <Text style={styles.text}>
+                  Age : {item.Age ? item.Age : 'NO DATA'}
+                </Text>
+                <Text style={styles.text}>
+                  Birth Date : {item.Birth_Date ? item.Birth_Date : 'NO DATA'}
+                </Text>
+                <Text style={styles.text}>
+                  Bounty : {item.Bounty ? item.Bounty : 'NO DATA'}
+                </Text>
+                <Text style={styles.text}>
+                  Devil Fruit : {item.Devil_Fruit ? item.Devil_Fruit : 'NONE'}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
+                  marginTop: 10,
+                  alignItems: 'center',
+                }}>
+                <TouchableOpacity style={styles.ButtonDefault}>
+                  <Text style={styles.text}>SET AS DEFAULT RINGTONE</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.closeButton}
+                  onPress={() => {
+                    setModalVisible(!modalVisible);
+                  }}>
+                  <Text style={styles.text}>Close</Text>
+                </TouchableOpacity>
+              </View>
+            </ImageBackground>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -58,10 +131,70 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginLeft: 10,
     color: 'black',
-    width: 120,
-    textAlign: 'center',
+    textAlign: 'left',
   },
   icon: {},
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalView: {
+    width: Dimensions.get('window').width - 25,
+    height: Dimensions.get('window').height / 2.5,
+    backgroundColor: 'white',
+    flexDirection: 'column',
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  imageBackground: {
+    width: Dimensions.get('window').width - 25,
+    height: Dimensions.get('window').height / 2.5,
+    borderRadius: 20,
+    opacity: 0.5,
+    alignItems: 'flex-start',
+    justifyContent: 'space-around',
+  },
+  ButtonDefault: {
+    backgroundColor: 'red',
+    borderRadius: 20,
+    width: Dimensions.get('window').width / 1.5,
+    height: Dimensions.get('window').height / 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  closeButton: {
+    backgroundColor: 'red',
+    borderRadius: 20,
+    width: Dimensions.get('window').width / 5,
+    height: Dimensions.get('window').height / 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
