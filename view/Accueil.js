@@ -45,15 +45,16 @@ const styles = StyleSheet.create({
   text_button: {
     fontFamily: 'Roboto',
     fontSize: 60,
-    left: 10,
-    top: 10,
+    left: Dimensions.get("window").width / 25,
+    top: Dimensions.get("window").height / 75,
     textShadowColor:'red',
     textShadowOffset:{width: 2, height: 2},
     textShadowRadius:1,
   },
   accueil_img: {
     position: 'absolute',
-    right: 50,
+    top: Dimensions.get("window").height / 3,
+    right: Dimensions.get("window").width / 9,
   },
   accueil_text: {
     backgroundColor: 'white',
@@ -66,8 +67,8 @@ const styles = StyleSheet.create({
     paddingBottom: 2,
     borderRadius: 15,
     fontSize: 20,
-    left: 60,
-    bottom: 90,
+    left: Dimensions.get("window").width / 6,
+    bottom: Dimensions.get("window").height / 8,
   },
   image: {
     flex: 1,
