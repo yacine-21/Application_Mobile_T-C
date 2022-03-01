@@ -32,7 +32,7 @@ const Card = ({item}) => {
           playSound();
         }}>
         <Image style={styles.image} source={item.image} />
-        <Text style={styles.text}>{item.name}</Text>
+        <Text style={styles.text}>{item.Name}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
