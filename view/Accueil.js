@@ -3,30 +3,35 @@ import {View, Text, StyleSheet, Button, ImageBackground, Image, Dimensions, Touc
 
 const Accueil = ({navigation}) => {
   return (
-    <View style={styles.container}>
-      <ImageBackground source={require('../assets/images/Accueil/bg-accueil.png')} resizeMode="cover" style={styles.image}>
-        <View style={styles.accueil_img}>  
-          <Image
-            source={require('../assets/images/Accueil/icone_accueil.png')}
-          />
-        </View>  
+    <React.Fragment>
+      <View style={styles.container}>
+        <ImageBackground source={require('../assets/images/Accueil/bg-accueil.png')} resizeMode="cover" style={styles.image}>
+          
+        </ImageBackground>
+      </View>  
+      {/* <View>
         <TouchableOpacity
-            style={styles.accueil_button}
-            onPress={() =>
-              navigation.navigate("Laugh")
-            }
-          >
-            <Text
-              style={styles.text_button}
-            >Laugh{"\n"}  Tale</Text>
-          </TouchableOpacity>
+          style={styles.accueil_button}
+          onPress={() =>
+            navigation.navigate("Laugh")
+          }
+        >
+          <View style={styles.accueil_img}>  
+            <Image
+              source={require('../assets/images/Accueil/icone_accueil.png')}
+            />
+          </View>
+          <Text
+            style={styles.text_button}
+          >Laugh{"\n"}  Tale</Text>
+        </TouchableOpacity>
           <Text
             style={styles.accueil_text}
           >
             We help you to make your day{"\n"}   better, so come and laugh
           </Text>
-      </ImageBackground>
-    </View>
+      </View> */}
+    </React.Fragment>
   );
 };
 
@@ -39,22 +44,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   accueil_button: {
-    justifyContent: 'center',
-    alignItems:'center',
+    // justifyContent: 'center',
+    // alignItems:'center',
   },
   text_button: {
+    position: 'absolute',
     fontFamily: 'Roboto',
     fontSize: 60,
-    left: Dimensions.get("window").width / 25,
-    top: Dimensions.get("window").height / 75,
+    left: Dimensions.get("window").width / 4,
+    top: Dimensions.get("window").height / 3,
     textShadowColor:'red',
     textShadowOffset:{width: 2, height: 2},
     textShadowRadius:1,
   },
   accueil_img: {
     position: 'absolute',
-    top: Dimensions.get("window").height / 3,
-    right: Dimensions.get("window").width / 9,
+    top: Dimensions.get("window").height / 4,
+    right: Dimensions.get("window").width / 8,
   },
   accueil_text: {
     backgroundColor: 'white',
