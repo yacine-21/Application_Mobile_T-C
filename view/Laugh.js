@@ -12,7 +12,7 @@ import Header from '../component/Header';
 // import DATA_BOUNTY from '../assets/Data/o/Laughtnepice_bounty';
 // import DATA_FRUITS from '../assets/Data/o/Laughtnepice_fruits';
 // import DATA_HEIGHT from '../assets/Data/o/Laughtnepice_height';
-import Card from '../component/Card';
+import Card from '../component/Card.js';
 
 const Laugh = ({navigation}) => {
   const data = [

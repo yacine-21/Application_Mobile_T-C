@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -8,90 +8,91 @@ import {
   Modal,
   Dimensions,
   ImageBackground,
+  PermissionsAndroid,
 } from 'react-native';
 import Icon from 'react-native-ionicons';
 import SoundPlayer from 'react-native-sound-player';
-import {AudioSet} from 'react-native-audio-recorder-player';
 import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 
+const checkPermission = async () => {
+  if (Platform.OS === 'android') {
+    try {
+      const grants = await PermissionsAndroid.requestMultiple([
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+      ]);
+      if (
+        grants['android.permission.WRITE_EXTERNAL_STORAGE'] ===
+          PermissionsAndroid.RESULTS.GRANTED &&
+        grants['android.permission.READ_EXTERNAL_STORAGE'] ===
+          PermissionsAndroid.RESULTS.GRANTED &&
+        grants['android.permission.RECORD_AUDIO'] ===
+          PermissionsAndroid.RESULTS.GRANTED
+      ) {
+      } else {
+        return;
+      }
+    } catch (err) {
+      console.warn(err);
+      return;
+    }
+  }
+};
+
+const audioRecorderPlayer = new AudioRecorderPlayer();
+
+const onStartRecord = async () => {
+  const result = await audioRecorderPlayer.startRecorder();
+  audioRecorderPlayer.addRecordBackListener(e => {
+    setState({
+      recordSecs: e.currentPosition,
+      recordTime: audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)),
+    });
+    return;
+  });
+  console.log(result);
+};
+
+const onStopRecord = async () => {
+  const result = await audioRecorderPlayer.stopRecorder();
+  audioRecorderPlayer.removeRecordBackListener();
+  setState({
+    recordSecs: 0,
+  });
+  console.log(result);
+};
+
+const onStartPlay = async () => {
+  console.log('onStartPlay');
+  const msg = await audioRecorderPlayer.startPlayer();
+  console.log(msg);
+  audioRecorderPlayer.addPlayBackListener(e => {
+    setState({
+      currentPositionSec: e.currentPosition,
+      currentDurationSec: e.duration,
+      playTime: audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)),
+      duration: audioRecorderPlayer.mmssss(Math.floor(e.duration)),
+    });
+    return;
+  });
+};
+
+const onPausePlay = async () => {
+  await audioRecorderPlayer.pausePlayer();
+};
+
+const onStopPlay = async () => {
+  console.log('onStopPlay');
+  audioRecorderPlayer.stopPlayer();
+  audioRecorderPlayer.removePlayBackListener();
+};
+
 const Card = ({item, navigation}) => {
-  // !!!!!!!!!!!
-  // const audioSet: AudioSet = {
-  //   AudioEncoderAndroid: AudioEncoderAndroidType.AAC,
-  //   AudioSourceAndroid: AudioSourceAndroidType.MIC,
-  //   AVModeIOS: AVModeIOSOption.measurement,
-  //   AVEncoderAudioQualityKeyIOS: AVEncoderAudioQualityIOSType.high,
-  //   AVNumberOfChannelsKeyIOS: 2,
-  //   AVFormatIDKeyIOS: AVEncodingOption.aac,
-  // };
-  // const meteringEnabled = false;
-  // const path = 'android/app/src/main/res/raw';
+  useEffect(() => {
+    checkPermission();
+  }, []);
 
-  // const uri = await this.audioRecorderPlayer.startRecorder(
-  //   path,
-  //   audioSet,
-  //   meteringEnabled,
-  // );
-
-  // this.audioRecorderPlayer.addRecordBackListener((e: any) => {
-  //   this.setState({
-  //     recordSecs: e.currentPosition,
-  //     recordTime: this.audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)),
-  //   });
-  // });
-  // !!!!!!!!!
-  const audioRecorderPlayer = new AudioRecorderPlayer();
-  onStartRecord = async () => {
-    const result = await this.audioRecorderPlayer.startRecorder();
-    this.audioRecorderPlayer.addRecordBackListener(e => {
-      this.setState({
-        recordSecs: e.currentPosition,
-        recordTime: this.audioRecorderPlayer.mmssss(
-          Math.floor(e.currentPosition),
-        ),
-      });
-      return;
-    });
-    console.log(result);
-  };
-
-  onStopRecord = async () => {
-    const result = await this.audioRecorderPlayer.stopRecorder();
-    this.audioRecorderPlayer.removeRecordBackListener();
-    this.setState({
-      recordSecs: 0,
-    });
-    console.log(result);
-  };
-
-  onStartPlay = async () => {
-    console.log('onStartPlay');
-    const msg = await this.audioRecorderPlayer.startPlayer();
-    console.log(msg);
-    this.audioRecorderPlayer.addPlayBackListener(e => {
-      this.setState({
-        currentPositionSec: e.currentPosition,
-        currentDurationSec: e.duration,
-        playTime: this.audioRecorderPlayer.mmssss(
-          Math.floor(e.currentPosition),
-        ),
-        duration: this.audioRecorderPlayer.mmssss(Math.floor(e.duration)),
-      });
-      return;
-    });
-  };
-
-  onPausePlay = async () => {
-    await this.audioRecorderPlayer.pausePlayer();
-  };
-
-  onStopPlay = async () => {
-    console.log('onStopPlay');
-    this.audioRecorderPlayer.stopPlayer();
-    this.audioRecorderPlayer.removePlayBackListener();
-  };
-
-  // !!!!!!!!!!!
   const playSound = () => {
     try {
       SoundPlayer.playSoundFile(`${item.sound}`, 'mp3');
@@ -104,6 +105,8 @@ const Card = ({item, navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [isRecord, setIsRecord] = useState(false);
   let icon_name = isRecord ? 'square' : 'radio-button-on';
+  const [recordSecs,setRecordSecs] = useState(0);
+  
 
   return (
     <View style={styles.card}>
@@ -161,6 +164,7 @@ const Card = ({item, navigation}) => {
                 <TouchableOpacity
                   onPress={() => {
                     setIsRecord(!isRecord);
+                    onStartRecord();
                   }}>
                   <Icon
                     name={icon_name}
