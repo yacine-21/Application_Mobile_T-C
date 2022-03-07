@@ -3,30 +3,31 @@ import {View, Text, StyleSheet, Button, ImageBackground, Image, Dimensions, Touc
 
 const Accueil = ({navigation}) => {
   return (
-    <View style={styles.container}>
-      <ImageBackground source={require('../assets/images/Accueil/bg-accueil.png')} resizeMode="cover" style={styles.image}>
-        <View style={styles.accueil_img}>  
-          <Image
-            source={require('../assets/images/Accueil/icone_accueil.png')}
-          />
-        </View>  
-        <TouchableOpacity
+    <React.Fragment>
+      <View style={styles.container}>
+        <ImageBackground source={require('../assets/images/Accueil/bg-accueil.png')} resizeMode="cover" style={styles.image}>
+          <TouchableOpacity
             style={styles.accueil_button}
             onPress={() =>
               navigation.navigate("Laugh")
             }
           >
-            <Text
-              style={styles.text_button}
-            >Laugh{"\n"}  Tale</Text>
+            <View style={styles.accueil_img}>  
+              <Image
+                source={require('../assets/images/Accueil/icone_accueil.png')}
+              />
+            </View>
           </TouchableOpacity>
+        </ImageBackground>
+      </View>  
+      <View>
           <Text
             style={styles.accueil_text}
           >
             We help you to make your day{"\n"}   better, so come and laugh
           </Text>
-      </ImageBackground>
-    </View>
+      </View>
+    </React.Fragment>
   );
 };
 
@@ -39,22 +40,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   accueil_button: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0,
+    bottom: 50,
     justifyContent: 'center',
     alignItems:'center',
-  },
-  text_button: {
-    fontFamily: 'Roboto',
-    fontSize: 60,
-    left: Dimensions.get("window").width / 25,
-    top: Dimensions.get("window").height / 75,
-    textShadowColor:'red',
-    textShadowOffset:{width: 2, height: 2},
-    textShadowRadius:1,
-  },
-  accueil_img: {
-    position: 'absolute',
-    top: Dimensions.get("window").height / 3,
-    right: Dimensions.get("window").width / 9,
   },
   accueil_text: {
     backgroundColor: 'white',
