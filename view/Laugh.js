@@ -76,7 +76,7 @@ const Laugh = () => {
       Devil_Fruit: 'Mango',
     },
     {
-      name: 'God Usopp',
+      Name: 'God Usopp',
       image: require('../assets/images/Laught/usopp.jpg'),
       sound: 'usopp',
       Age: 16,

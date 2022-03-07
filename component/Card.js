@@ -61,7 +61,7 @@ const Card = ({item}) => {
                   marginTop: 10,
                 }}>
                 <Text style={styles.text}>
-                  Name : {item.Name ? item.Age : 'NO DATA'}
+                  Name : {item.Name ? item.Name : 'NO DATA'}
                 </Text>
                 <Text style={styles.text}>
                   Age : {item.Age ? item.Age : 'NO DATA'}
