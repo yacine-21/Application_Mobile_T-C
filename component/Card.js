@@ -23,6 +23,8 @@ const Card = ({item}) => {
   };
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [isRecord, setIsRecord] = useState(false);
+  let icon_name = isRecord ? 'square' : 'radio-button-on';
 
   return (
     <View style={styles.card}>
@@ -76,17 +78,19 @@ const Card = ({item}) => {
                   Devil Fruit : {item.Devil_Fruit ? item.Devil_Fruit : 'NONE'}
                 </Text>
               </View>
-              <View
-                style={{
-                  width: '100%',
-                  flexDirection: 'row',
-                  justifyContent: 'space-around',
-                  marginTop: 10,
-                  alignItems: 'center',
-                }}>
-                <TouchableOpacity style={styles.ButtonDefault}>
-                  <Text style={styles.text}>SET AS DEFAULT RINGTONE</Text>
+              <View style={styles.ButtonDefault}>
+                <TouchableOpacity
+                  onPress={() => {
+                    setIsRecord(!isRecord);
+                  }}>
+                  <Icon
+                    name={icon_name}
+                    color="black"
+                    size={35}
+                    style={styles.icon}
+                  />
                 </TouchableOpacity>
+                <Text style={styles.text}>00:00</Text>
                 <TouchableOpacity
                   onPress={() => {
                     setModalVisible(!modalVisible);
@@ -94,7 +98,7 @@ const Card = ({item}) => {
                   {/*logo here*/}
                   <Icon
                     name="close-circle"
-                    color="red"
+                    color="white"
                     size={35}
                     style={styles.icon}
                   />
@@ -182,12 +186,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   ButtonDefault: {
-    backgroundColor: 'red',
-    borderRadius: 20,
-    width: Dimensions.get('window').width / 1.5,
-    height: Dimensions.get('window').height / 15,
-    justifyContent: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     alignItems: 'center',
+    backgroundColor: 'red',
+    alignSelf: 'center',
+    borderRadius: 20,
+    marginHorizontal: 10,
+    width: Dimensions.get('window').width / 1.5,
+    height: Dimensions.get('window').height / 20,
   },
   closeButton: {
     backgroundColor: 'red',
