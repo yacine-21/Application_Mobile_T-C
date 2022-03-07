@@ -12,7 +12,7 @@ import {
 import Icon from 'react-native-ionicons';
 import SoundPlayer from 'react-native-sound-player';
 
-const Card = ({item}) => {
+const Card = ({item, navigation}) => {
   const playSound = () => {
     try {
       SoundPlayer.playSoundFile(`${item.sound}`, 'mp3');
@@ -93,17 +93,33 @@ const Card = ({item}) => {
                 <Text style={styles.text}>00:00</Text>
                 <TouchableOpacity
                   onPress={() => {
-                    setModalVisible(!modalVisible);
+                    navigation.navigate('List');
                   }}>
-                  {/*logo here*/}
                   <Icon
-                    name="close-circle"
-                    color="white"
+                    name="add"
+                    color="black"
                     size={35}
                     style={styles.icon}
                   />
                 </TouchableOpacity>
               </View>
+              <TouchableOpacity
+                style={{
+                  position: 'absolute',
+                  zIndex: 2,
+                  top: 10,
+                  right: 20,
+                }}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                }}>
+                <Icon
+                  name="arrow-round-back"
+                  color="black"
+                  size={45}
+                  style={styles.icon}
+                />
+              </TouchableOpacity>
             </ImageBackground>
           </View>
         </View>

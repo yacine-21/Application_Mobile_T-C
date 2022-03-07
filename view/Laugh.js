@@ -14,7 +14,7 @@ import Header from '../component/Header';
 // import DATA_HEIGHT from '../assets/Data/o/Laughtnepice_height';
 import Card from '../component/Card';
 
-const Laugh = () => {
+const Laugh = ({navigation}) => {
   const data = [
     {
       Name: 'Roronoa Zoro',
@@ -90,7 +90,9 @@ const Laugh = () => {
       <Header />
       <FlatList
         data={data}
-        renderItem={({item, index}) => <Card item={item} />}
+        renderItem={({item, index}) => (
+          <Card navigation={navigation} item={item} />
+        )}
         keyExtractor={(item, index) => index}
         numColumns={2}
       />
