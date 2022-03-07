@@ -9,7 +9,7 @@ const Accueil = ({navigation}) => {
           
         </ImageBackground>
       </View>  
-      {/* <View>
+      <View>
         <TouchableOpacity
           style={styles.accueil_button}
           onPress={() =>
@@ -30,7 +30,7 @@ const Accueil = ({navigation}) => {
           >
             We help you to make your day{"\n"}   better, so come and laugh
           </Text>
-      </View> */}
+      </View>
     </React.Fragment>
   );
 };
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   accueil_button: {
-    // justifyContent: 'center',
-    // alignItems:'center',
+    justifyContent: 'center',
+    alignItems:'center',
   },
   text_button: {
     position: 'absolute',
@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: Dimensions.get("window").height / 4,
     right: Dimensions.get("window").width / 8,
+    zIndex: 2,
   },
   accueil_text: {
     backgroundColor: 'white',
