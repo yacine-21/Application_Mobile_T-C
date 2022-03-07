@@ -6,25 +6,21 @@ const Accueil = ({navigation}) => {
     <React.Fragment>
       <View style={styles.container}>
         <ImageBackground source={require('../assets/images/Accueil/bg-accueil.png')} resizeMode="cover" style={styles.image}>
-          
+          <TouchableOpacity
+            style={styles.accueil_button}
+            onPress={() =>
+              navigation.navigate("Laugh")
+            }
+          >
+            <View style={styles.accueil_img}>  
+              <Image
+                source={require('../assets/images/Accueil/icone_accueil.png')}
+              />
+            </View>
+          </TouchableOpacity>
         </ImageBackground>
       </View>  
       <View>
-        <TouchableOpacity
-          style={styles.accueil_button}
-          onPress={() =>
-            navigation.navigate("Laugh")
-          }
-        >
-          <View style={styles.accueil_img}>  
-            <Image
-              source={require('../assets/images/Accueil/icone_accueil.png')}
-            />
-          </View>
-          <Text
-            style={styles.text_button}
-          >Laugh{"\n"}  Tale</Text>
-        </TouchableOpacity>
           <Text
             style={styles.accueil_text}
           >
@@ -44,24 +40,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   accueil_button: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0,
+    bottom: 50,
     justifyContent: 'center',
     alignItems:'center',
-  },
-  text_button: {
-    position: 'absolute',
-    fontFamily: 'Roboto',
-    fontSize: 60,
-    left: Dimensions.get("window").width / 4,
-    top: Dimensions.get("window").height / 3,
-    textShadowColor:'red',
-    textShadowOffset:{width: 2, height: 2},
-    textShadowRadius:1,
-  },
-  accueil_img: {
-    position: 'absolute',
-    top: Dimensions.get("window").height / 4,
-    right: Dimensions.get("window").width / 8,
-    zIndex: 2,
   },
   accueil_text: {
     backgroundColor: 'white',
