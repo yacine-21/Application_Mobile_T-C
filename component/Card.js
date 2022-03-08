@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -8,11 +8,96 @@ import {
   Modal,
   Dimensions,
   ImageBackground,
+  PermissionsAndroid,
 } from 'react-native';
 import Icon from 'react-native-ionicons';
 import SoundPlayer from 'react-native-sound-player';
+import AudioRecorderPlayer from 'react-native-audio-recorder-player';
+
+const checkPermission = async () => {
+  if (Platform.OS === 'android') {
+    try {
+      const grants = await PermissionsAndroid.requestMultiple([
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+      ]);
+      if (
+        grants['android.permission.WRITE_EXTERNAL_STORAGE'] ===
+          PermissionsAndroid.RESULTS.GRANTED &&
+        grants['android.permission.READ_EXTERNAL_STORAGE'] ===
+          PermissionsAndroid.RESULTS.GRANTED &&
+        grants['android.permission.RECORD_AUDIO'] ===
+          PermissionsAndroid.RESULTS.GRANTED
+      ) {
+      } else {
+        return;
+      }
+    } catch (err) {
+      console.warn(err);
+      return;
+    }
+  }
+};
+
+const audioRecorderPlayer = new AudioRecorderPlayer();
+
+const onPausePlay = async () => {
+  await audioRecorderPlayer.pausePlayer();
+};
+
+const onStopPlay = async () => {
+  console.log('onStopPlay');
+  audioRecorderPlayer.stopPlayer();
+  audioRecorderPlayer.removePlayBackListener();
+};
 
 const Card = ({item, navigation}) => {
+  useEffect(() => {
+    checkPermission();
+  }, []);
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [isRecord, setIsRecord] = useState(false);
+  let icon_name = isRecord ? 'square' : 'radio-button-on';
+  const [recordSecs, setRecordSecs] = useState(0);
+  const [recordTime, setRecordTime] = useState('00:00:00');
+  const [currentPositionSec, setCurrentPositionSec] = useState(0);
+  const [currentDurationSec, setCurrentDurationSec] = useState(0);
+  const [playTime, setPlayTime] = useState('');
+  const [duration, setDuration] = useState('');
+  const [test, setTest] = useState(true);
+
+  const onStartRecord = async () => {
+    const result = await audioRecorderPlayer.startRecorder();
+    audioRecorderPlayer.addRecordBackListener(e => {
+      setRecordSecs(e.currentPosition);
+      setRecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)));
+      return;
+    });
+    console.log(result);
+  };
+
+  const onStopRecord = async () => {
+    const result = await audioRecorderPlayer.stopRecorder();
+    audioRecorderPlayer.removeRecordBackListener();
+    setRecordSecs(0);
+    console.log(result);
+  };
+
+  const onStartPlay = async () => {
+    console.log('onStartPlay');
+    const msg = await audioRecorderPlayer.startPlayer();
+    console.log(msg);
+    audioRecorderPlayer.addPlayBackListener(e => {
+      setCurrentPositionSec(e.currentPosition);
+      setCurrentDurationSec(e.duration);
+      setPlayTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)));
+      setDuration(audioRecorderPlayer.mmssss(Math.floor(e.duration)));
+      return;
+    });
+  };
+
   const playSound = () => {
     try {
       SoundPlayer.playSoundFile(`${item.sound}`, 'mp3');
@@ -21,10 +106,6 @@ const Card = ({item, navigation}) => {
       console.log(error);
     }
   };
-
-  const [modalVisible, setModalVisible] = useState(false);
-  const [isRecord, setIsRecord] = useState(false);
-  let icon_name = isRecord ? 'square' : 'radio-button-on';
 
   return (
     <View style={styles.card}>
@@ -82,6 +163,7 @@ const Card = ({item, navigation}) => {
                 <TouchableOpacity
                   onPress={() => {
                     setIsRecord(!isRecord);
+                    // onStartRecord()
                   }}>
                   <Icon
                     name={icon_name}
