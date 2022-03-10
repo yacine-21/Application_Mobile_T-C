@@ -62,7 +62,7 @@ const Card = ({item, navigation}) => {
   };
 
   const onStopPlay = async () => {
-    console.log('onStopPlay');
+    console.log('record stopped');
     audioRecorderPlayer.stopPlayer();
     audioRecorderPlayer.removePlayBackListener();
   };
