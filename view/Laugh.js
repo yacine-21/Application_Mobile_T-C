@@ -90,9 +90,7 @@ const Laugh = ({navigation}) => {
       <Header />
       <FlatList
         data={data}
-        renderItem={({item, index}) => (
-          <Card navigation={navigation} item={item} />
-        )}
+        renderItem={({item}) => <Card navigation={navigation} item={item} />}
         keyExtractor={(item, index) => index}
         numColumns={2}
       />

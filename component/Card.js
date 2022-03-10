@@ -42,16 +42,6 @@ const checkPermission = async () => {
 
 const audioRecorderPlayer = new AudioRecorderPlayer();
 
-const onPausePlay = async () => {
-  await audioRecorderPlayer.pausePlayer();
-};
-
-const onStopPlay = async () => {
-  console.log('onStopPlay');
-  audioRecorderPlayer.stopPlayer();
-  audioRecorderPlayer.removePlayBackListener();
-};
-
 const Card = ({item, navigation}) => {
   useEffect(() => {
     checkPermission();
@@ -66,7 +56,16 @@ const Card = ({item, navigation}) => {
   const [currentDurationSec, setCurrentDurationSec] = useState(0);
   const [playTime, setPlayTime] = useState('');
   const [duration, setDuration] = useState('');
-  const [test, setTest] = useState(true);
+
+  const onPausePlay = async () => {
+    await audioRecorderPlayer.pausePlayer();
+  };
+
+  const onStopPlay = async () => {
+    console.log('onStopPlay');
+    audioRecorderPlayer.stopPlayer();
+    audioRecorderPlayer.removePlayBackListener();
+  };
 
   const onStartRecord = async () => {
     const result = await audioRecorderPlayer.startRecorder();
