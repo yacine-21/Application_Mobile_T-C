@@ -8,53 +8,80 @@ import {
   FlatList,
 } from 'react-native';
 import Header from '../component/Header';
-import DATA_BDAY from '../assets/Data/onepice_bday';
-import DATA_BOUNTY from '../assets/Data/onepice_bounty';
-import DATA_FRUITS from '../assets/Data/onepice_fruits';
-import DATA_HEIGHT from '../assets/Data/onepice_height';
-import Card from '../component/Card';
+// import DATA_BDAY from '../assets/Data/o/Laughtnepice_bday';
+// import DATA_BOUNTY from '../assets/Data/o/Laughtnepice_bounty';
+// import DATA_FRUITS from '../assets/Data/o/Laughtnepice_fruits';
+// import DATA_HEIGHT from '../assets/Data/o/Laughtnepice_height';
+import Card from '../component/Card.js';
 
-const Laugh = () => {
+const Laugh = ({navigation}) => {
   const data = [
     {
-      name: 'Roronoa Zoro',
-      image: require('../assets/images/roronoa_zoro.jpg'),
+      Name: 'Roronoa Zoro',
+      image: require('../assets/images/Laught/roronoa_zoro.jpg'),
       sound: 'roronoa_zoro',
+      Age: 16,
+      Birth_Date: '10/10/10',
+      Bounty: '100',
     },
     {
-      name: 'Nami',
-      image: require('../assets/images/nami.gif'),
+      Name: 'Nami',
+      image: require('../assets/images/Laught/nami.gif'),
       sound: 'nami',
+      Age: 16,
+      Birth_Date: '10/10/10',
+      Bounty: '100',
     },
     {
-      name: 'Vinsmoke Sanji',
-      image: require('../assets/images/sanji.jpg'),
+      Name: 'Vinsmoke Sanji',
+      image: require('../assets/images/Laught/sanji.jpg'),
       sound: 'sanji',
+      Age: 16,
+      Birth_Date: '10/10/10',
+      Bounty: '100',
     },
     {
-      name: 'Chopper',
-      image: require('../assets/images/chopper.png'),
+      Name: 'Chopper',
+      image: require('../assets/images/Laught/chopper.png'),
       sound: 'chopper',
+      Age: 16,
+      Birth_Date: '10/10/10',
+      Bounty: '100',
+      Devil_Fruit: 'Mango',
     },
     {
-      name: 'Franky',
-      image: require('../assets/images/franky.jpg'),
+      Name: 'Franky',
+      image: require('../assets/images/Laught/franky.jpg'),
       sound: 'franky',
+      Age: 16,
+      Birth_Date: '10/10/10',
+      Bounty: '100',
     },
     {
-      name: 'Brook',
-      image: require('../assets/images/brook.jpg'),
+      Name: 'Brook',
+      image: require('../assets/images/Laught/brook.jpg'),
       sound: 'brook',
+      Age: 16,
+      Birth_Date: '10/10/10',
+      Bounty: '100',
+      Devil_Fruit: 'Mango',
     },
     {
-      name: 'Monkey D. Luffy',
-      image: require('../assets/images/luffy.jpg'),
+      Name: 'Monkey D. Luffy',
+      image: require('../assets/images/Laught/luffy.jpg'),
       sound: 'luffy',
+      Age: 16,
+      Birth_Date: '10/10/10',
+      Bounty: '100',
+      Devil_Fruit: 'Mango',
     },
     {
-      name: 'God Usopp',
-      image: require('../assets/images/usopp.jpg'),
+      Name: 'God Usopp',
+      image: require('../assets/images/Laught/usopp.jpg'),
       sound: 'usopp',
+      Age: 16,
+      Birth_Date: '10/10/10',
+      Bounty: '100',
     },
   ];
 
@@ -63,7 +90,7 @@ const Laugh = () => {
       <Header />
       <FlatList
         data={data}
-        renderItem={({item, index}) => <Card item={item} />}
+        renderItem={({item}) => <Card navigation={navigation} item={item} />}
         keyExtractor={(item, index) => index}
         numColumns={2}
       />
