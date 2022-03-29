@@ -13,6 +13,7 @@ import {
 import Icon from 'react-native-ionicons';
 import SoundPlayer from 'react-native-sound-player';
 import AudioRecorderPlayer from 'react-native-audio-recorder-player';
+import LinearGradient from 'react-native-linear-gradient';
 
 const checkPermission = async () => {
   if (Platform.OS === 'android') {
@@ -107,104 +108,38 @@ const Card = ({item, navigation}) => {
   };
 
   return (
-    <View style={styles.card}>
-      <TouchableOpacity
-        style={styles.item}
-        onPress={() => {
-          playSound();
+    <View
+      style={{
+        height: Dimensions.get('window').height * 0.3,
+        flex: 1,
+      }}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
         }}>
-        <Image style={styles.image} source={item.image} />
-        <Text style={styles.text}>{item.Name}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          setModalVisible(true);
-        }}>
-        <Icon
-          name="add-circle-outline"
-          color="red"
-          size={35}
-          style={styles.icon}
-        />
-      </TouchableOpacity>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <ImageBackground style={styles.imageBackground} source={item.image}>
-              <View
-                style={{
-                  justifyContent: 'space-between',
-                  marginTop: 10,
-                }}>
-                <Text style={styles.text}>
-                  Name : {item.Name ? item.Name : 'NO DATA'}
-                </Text>
-                <Text style={styles.text}>
-                  Age : {item.Age ? item.Age : 'NO DATA'}
-                </Text>
-                <Text style={styles.text}>
-                  Birth Date : {item.Birth_Date ? item.Birth_Date : 'NO DATA'}
-                </Text>
-                <Text style={styles.text}>
-                  Bounty : {item.Bounty ? item.Bounty : 'NO DATA'}
-                </Text>
-                <Text style={styles.text}>
-                  Devil Fruit : {item.Devil_Fruit ? item.Devil_Fruit : 'NONE'}
-                </Text>
-              </View>
-              <View style={styles.ButtonDefault}>
-                <TouchableOpacity
-                  onPress={() => {
-                    setIsRecord(!isRecord);
-                    // onStartRecord()
-                  }}>
-                  <Icon
-                    name={icon_name}
-                    color="black"
-                    size={35}
-                    style={styles.icon}
-                  />
-                </TouchableOpacity>
-                <Text style={styles.text}>00:00</Text>
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate('List');
-                  }}>
-                  <Icon
-                    name="add"
-                    color="black"
-                    size={35}
-                    style={styles.icon}
-                  />
-                </TouchableOpacity>
-              </View>
-              <TouchableOpacity
-                style={{
-                  position: 'absolute',
-                  zIndex: 2,
-                  top: 10,
-                  right: 20,
-                }}
-                onPress={() => {
-                  setModalVisible(!modalVisible);
-                }}>
-                <Icon
-                  name="arrow-round-back"
-                  color="black"
-                  size={45}
-                  style={styles.icon}
-                />
-              </TouchableOpacity>
-            </ImageBackground>
+        <LinearGradient
+          colors={[`#${item.main_color}`, '#000000']}
+          style={[styles.gradient, {shadowColor: `#${item.shadow_color}`}]}>
+          <View style={styles.card}>
+            <LinearGradient
+              colors={[
+                `#${item.linear_color}`,
+                `#${item.linear_color}`,
+                `#${item.linear_color}`,
+                `#${item.linear_color}`,
+                '#000000',
+                '#000000',
+              ]}
+              style={styles.gradient_2}
+            />
+            <Image style={styles.image} source={item.image} />
+            <Text style={styles.text}>{item.Name}</Text>
+            <Image style={styles.image_logo} source={item.image_logo} />
           </View>
-        </View>
-      </Modal>
+        </LinearGradient>
+      </View>
     </View>
   );
 };
@@ -213,27 +148,27 @@ export default Card;
 
 const styles = StyleSheet.create({
   card: {
-    flex: 1,
+    borderRadius: 50,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'flex-start',
-    margin: 10,
-    borderRadius: 10,
+    alignItems: 'center',
   },
 
-  item: {
-    marginBottom: 10,
-  },
   image: {
-    width: 120,
-    height: 120,
-    borderRadius: 20,
+    zIndex: 1,
+    top: -52,
+    // width: '100%',
+    // height: 200,
+    borderRadius: 0,
   },
   text: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'black',
-    textAlign: 'left',
+    fontFamily: 'Fada',
+    bottom: 50,
+    left: 10,
+    fontSize: 50,
+    color: 'white',
+    zIndex: 2,
+    position: 'absolute',
   },
   icon: {},
   centeredView: {
@@ -244,7 +179,6 @@ const styles = StyleSheet.create({
   modalView: {
     width: Dimensions.get('window').width - 25,
     height: Dimensions.get('window').height / 2.5,
-    backgroundColor: 'white',
     flexDirection: 'column',
     borderRadius: 20,
     shadowColor: '#000',
@@ -270,10 +204,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
+
   imageBackground: {
     width: Dimensions.get('window').width - 25,
     height: Dimensions.get('window').height / 2.5,
@@ -282,27 +213,32 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'space-around',
   },
-  ButtonDefault: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: 'red',
-    alignSelf: 'center',
-    borderRadius: 20,
-    marginHorizontal: 10,
-    width: Dimensions.get('window').width / 1.5,
-    height: Dimensions.get('window').height / 20,
+
+  gradient: {
+    width: 143,
+    height: 158,
+    borderRadius: 30,
+    borderColor: '#000000',
+    borderWidth: 1,
+    borderRadius: 30,
+    elevation: 30,
+    shadowOffset: {
+      width: 20,
+      height: 20,
+    },
   },
-  closeButton: {
-    backgroundColor: 'red',
-    borderRadius: 20,
-    width: Dimensions.get('window').width / 5,
-    height: Dimensions.get('window').height / 15,
-    justifyContent: 'center',
-    alignItems: 'center',
+  gradient_2: {
+    width: 143,
+    height: 158,
+    zIndex: 2,
+    top: 0,
+    position: 'absolute',
+    borderRadius: 30,
   },
-  closeImage: {
-    width: Dimensions.get('window').width / 10,
-    height: Dimensions.get('window').height / 15,
+  image_logo: {
+    position: 'absolute',
+    bottom: 18,
+    right: 4,
+    zIndex: 2,
   },
 });
