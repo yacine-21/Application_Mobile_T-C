@@ -110,33 +110,29 @@ const Card = ({item, navigation}) => {
   return (
     <View
       style={{
+        alignItems: 'center',
         flex: 1,
       }}>
-      <View
-        style={{
-          alignItems: 'center',
-        }}>
-        <LinearGradient
-          colors={[`#${item.main_color}`, '#000000']}
-          style={[styles.gradient, {shadowColor: `#${item.shadow_color}`}]}>
-          <View style={styles.card}>
-            <LinearGradient
-              colors={[
-                `#${item.linear_color}`,
-                `#${item.linear_color}`,
-                `#${item.linear_color}`,
-                `#${item.linear_color}`,
-                '#000000',
-                '#000000',
-              ]}
-              style={styles.gradient_2}
-            />
-            <Image style={styles.image} source={item.image} />
-            <Text style={styles.text}>{item.Name}</Text>
-            <Image style={styles.image_logo} source={item.image_logo} />
-          </View>
-        </LinearGradient>
-      </View>
+      <LinearGradient
+        colors={[`#${item.main_color}`, '#000000']}
+        style={[styles.gradient, {shadowColor: `#${item.shadow_color}`}]}>
+        <View style={styles.card}>
+          <LinearGradient
+            colors={[
+              `#${item.linear_color}`,
+              `#${item.linear_color}`,
+              `#${item.linear_color}`,
+              `#${item.linear_color}`,
+              '#000000',
+              '#000000',
+            ]}
+            style={styles.gradient_2}
+          />
+          <Image style={styles.image} source={item.image} />
+          <Text style={styles.text}>{item.Name}</Text>
+          <Image style={styles.image_logo} source={item.image_logo} />
+        </View>
+      </LinearGradient>
     </View>
   );
 };
