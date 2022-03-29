@@ -6,6 +6,7 @@ const Citation_Top = () => {
     <View
       style={{
         height: Dimensions.get('window').height * 0.15,
+        backgroundColor: 'red',
       }}>
       <Text>Citation_Top</Text>
     </View>

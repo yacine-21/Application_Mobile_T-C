@@ -117,6 +117,7 @@ const Laugh = ({navigation}) => {
       <Header />
       <Citation_Top />
       <FlatList
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
         contentContainerStyle={styles.list}
         data={data}
         renderItem={({item}) => <Card navigation={navigation} item={item} />}
@@ -138,7 +139,11 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   list: {
-    marginBottom: 10,
-    justifyContent: 'space-around',
+    flex: 1,
+    justifyContent: 'center',
+    height: Dimensions.get('window').height / 1.5,
+  },
+  separator: {
+    height: 50,
   },
 });

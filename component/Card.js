@@ -110,13 +110,10 @@ const Card = ({item, navigation}) => {
   return (
     <View
       style={{
-        height: Dimensions.get('window').height * 0.3,
         flex: 1,
       }}>
       <View
         style={{
-          flex: 1,
-          justifyContent: 'center',
           alignItems: 'center',
         }}>
         <LinearGradient
@@ -149,9 +146,6 @@ export default Card;
 const styles = StyleSheet.create({
   card: {
     borderRadius: 50,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 
   image: {
@@ -169,49 +163,6 @@ const styles = StyleSheet.create({
     color: 'white',
     zIndex: 2,
     position: 'absolute',
-  },
-  icon: {},
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalView: {
-    width: Dimensions.get('window').width - 25,
-    height: Dimensions.get('window').height / 2.5,
-    flexDirection: 'column',
-    borderRadius: 20,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-
-  imageBackground: {
-    width: Dimensions.get('window').width - 25,
-    height: Dimensions.get('window').height / 2.5,
-    borderRadius: 20,
-    opacity: 0.7,
-    alignItems: 'flex-start',
-    justifyContent: 'space-around',
   },
 
   gradient: {

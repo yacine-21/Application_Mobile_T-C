@@ -5,6 +5,7 @@ const Citation_Bot = () => {
   return (
     <View
       style={{
+        backgroundColor: 'red',
         height: Dimensions.get('window').height * 0.15,
       }}>
       <Text>Citation_Bot</Text>
