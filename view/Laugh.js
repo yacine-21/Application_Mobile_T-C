@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Image,
-  Text,
-  ScrollView,
-  FlatList,
-  Dimensions,
-} from 'react-native';
+import {View, StyleSheet, FlatList, Dimensions} from 'react-native';
 import Header from '../component/Header';
 import Card from '../component/Card.js';
 import Citation_Bot from '../component/Citation_Bot';
@@ -17,7 +9,7 @@ const Laugh = ({navigation}) => {
   const data = [
     {
       Name: 'Zoro',
-      image: require('../assets/images/Laught/character.png'),
+      image: require('../assets/images/Laught/zoro.png'),
       image_logo: require('../assets/images/Laught/logo_zz.png'),
       sound: 'roronoa_zoro',
       Age: 16,
@@ -29,40 +21,40 @@ const Laugh = ({navigation}) => {
     },
     {
       Name: 'Nami',
-      image: require('../assets/images/Laught/character.png'),
+      image: require('../assets/images/Laught/nami.png'),
       image_logo: require('../assets/images/Laught/logo_zz.png'),
       sound: 'nami',
       Age: 16,
       Birth_Date: '10/10/10',
       Bounty: '100',
-      main_color: '92ff96',
-      linear_color: '68ed6d00',
-      shadow_color: '89f08d',
+      main_color: 'F3771C',
+      linear_color: 'DE8E1600',
+      shadow_color: 'E46F1A',
     },
     {
       Name: 'Sanji',
-      image: require('../assets/images/Laught/character_2.png'),
+      image: require('../assets/images/Laught/sanji.png'),
       image_logo: require('../assets/images/Laught/logo_zz.png'),
       sound: 'sanji',
       Age: 16,
       Birth_Date: '10/10/10',
       Bounty: '100',
-      main_color: 'fff72f',
-      linear_color: 'e5de3400',
-      shadow_color: 'f0e689',
+      main_color: 'FFF72F',
+      linear_color: 'E5DE3400',
+      shadow_color: 'F0E689',
     },
     {
-      Name: 'Chopper',
-      image: require('../assets/images/Laught/character_2.png'),
+      Name: 'Luffy',
+      image: require('../assets/images/Laught/luffy.png'),
       image_logo: require('../assets/images/Laught/logo_zz.png'),
-      sound: 'chopper',
+      sound: 'luffy',
       Age: 16,
       Birth_Date: '10/10/10',
       Bounty: '100',
       Devil_Fruit: 'Mango',
-      main_color: '92ff96',
-      linear_color: '68ed6d00',
-      shadow_color: '89f08d',
+      main_color: 'FF9292',
+      linear_color: 'ED686800',
+      shadow_color: 'ED6868',
     },
     // {
     //   Name: 'Franky',

@@ -1,19 +1,22 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Modal,
   Dimensions,
-  ImageBackground,
+  Image,
   PermissionsAndroid,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import Icon from 'react-native-ionicons';
-import SoundPlayer from 'react-native-sound-player';
-import AudioRecorderPlayer from 'react-native-audio-recorder-player';
 import LinearGradient from 'react-native-linear-gradient';
+import {
+  onPausePlay,
+  onStartPlay,
+  onStartRecord,
+  onStopPlay,
+  onStopRecord,
+  playSound,
+} from '../lib/record';
 
 const checkPermission = async () => {
   if (Platform.OS === 'android') {
@@ -41,8 +44,6 @@ const checkPermission = async () => {
   }
 };
 
-const audioRecorderPlayer = new AudioRecorderPlayer();
-
 const Card = ({item, navigation}) => {
   useEffect(() => {
     checkPermission();
@@ -58,82 +59,39 @@ const Card = ({item, navigation}) => {
   const [playTime, setPlayTime] = useState('');
   const [duration, setDuration] = useState('');
 
-  const onPausePlay = async () => {
-    await audioRecorderPlayer.pausePlayer();
-  };
-
-  const onStopPlay = async () => {
-    console.log('record stopped');
-    audioRecorderPlayer.stopPlayer();
-    audioRecorderPlayer.removePlayBackListener();
-  };
-
-  const onStartRecord = async () => {
-    const result = await audioRecorderPlayer.startRecorder();
-    audioRecorderPlayer.addRecordBackListener(e => {
-      setRecordSecs(e.currentPosition);
-      setRecordTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)));
-      return;
-    });
-    console.log(result);
-  };
-
-  const onStopRecord = async () => {
-    const result = await audioRecorderPlayer.stopRecorder();
-    audioRecorderPlayer.removeRecordBackListener();
-    setRecordSecs(0);
-    console.log(result);
-  };
-
-  const onStartPlay = async () => {
-    console.log('onStartPlay');
-    const msg = await audioRecorderPlayer.startPlayer();
-    console.log(msg);
-    audioRecorderPlayer.addPlayBackListener(e => {
-      setCurrentPositionSec(e.currentPosition);
-      setCurrentDurationSec(e.duration);
-      setPlayTime(audioRecorderPlayer.mmssss(Math.floor(e.currentPosition)));
-      setDuration(audioRecorderPlayer.mmssss(Math.floor(e.duration)));
-      return;
-    });
-  };
-
-  const playSound = () => {
-    try {
-      SoundPlayer.playSoundFile(`${item.sound}`, 'mp3');
-      console.log(item.sound);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
-    <View
+    <TouchableOpacity
+      onPress={() => {
+        setModalVisible(true);
+        playSound(item.sound);
+      }}
       style={{
         alignItems: 'center',
         flex: 1,
       }}>
-      <LinearGradient
-        colors={[`#${item.main_color}`, '#000000']}
-        style={[styles.gradient, {shadowColor: `#${item.shadow_color}`}]}>
-        <View style={styles.card}>
-          <LinearGradient
-            colors={[
-              `#${item.linear_color}`,
-              `#${item.linear_color}`,
-              `#${item.linear_color}`,
-              `#${item.linear_color}`,
-              '#000000',
-              '#000000',
-            ]}
-            style={styles.gradient_2}
-          />
-          <Image style={styles.image} source={item.image} />
-          <Text style={styles.text}>{item.Name}</Text>
-          <Image style={styles.image_logo} source={item.image_logo} />
-        </View>
-      </LinearGradient>
-    </View>
+      <View>
+        <LinearGradient
+          colors={[`#${item.main_color}`, '#000000']}
+          style={[styles.gradient, {shadowColor: `#${item.shadow_color}`}]}>
+          <View style={styles.card}>
+            <LinearGradient
+              colors={[
+                `#${item.linear_color}`,
+                `#${item.linear_color}`,
+                `#${item.linear_color}`,
+                `#${item.linear_color}`,
+                '#000000',
+                '#000000',
+              ]}
+              style={styles.gradient_2}
+            />
+            <Image style={styles.image} source={item.image} />
+            <Text style={styles.text}>{item.Name}</Text>
+            <Image style={styles.image_logo} source={item.image_logo} />
+          </View>
+        </LinearGradient>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -147,9 +105,9 @@ const styles = StyleSheet.create({
   image: {
     zIndex: 1,
     top: -52,
-    // width: '100%',
-    // height: 200,
-    borderRadius: 0,
+    borderRadius: 50,
+    width: Dimensions.get('window').width * 0.4,
+    height: Dimensions.get('window').width * 0.4,
   },
   text: {
     fontFamily: 'Fada',
